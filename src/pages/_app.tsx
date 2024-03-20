@@ -1,6 +1,9 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { initializeApp } from "firebase/app";
+import { dbConnect } from "@/utils/dbConnect";
+import mongoose from "mongoose";
+import Navbar from "@/components/Navbar";
 
 export default function App({ Component, pageProps }: AppProps) {
   const firebaseConfig = {
@@ -14,6 +17,12 @@ export default function App({ Component, pageProps }: AppProps) {
   };
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
+  // dbConnect();
   
-  return <Component {...pageProps} />;
+  return (
+    <div>
+      <Navbar/>
+      <Component {...pageProps} />
+    </div>
+  )
 }
