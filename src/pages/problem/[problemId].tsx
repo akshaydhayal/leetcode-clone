@@ -1,3 +1,4 @@
+import EditorComponent from "@/components/Editor";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -7,6 +8,7 @@ export default function programPage() {
   const [problem, setProblem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [hintOpenIndex, setHintOpenIndex] = useState([]);
+
 
   async function getProblemData() {
     console.log(`problemId : ${problemId}`);
@@ -32,9 +34,11 @@ export default function programPage() {
     getProblemData();
   }, [problemId]);
   console.log("hints : " + hintOpenIndex);
+
   if (loading) {
     return <div>Loading...please wait!!</div>;
   }
+
   return (
     <div className="flex justify-center">
       {problem && (
@@ -100,6 +104,8 @@ export default function programPage() {
             </ul>
           </div>
 
+          <EditorComponent/>
+          
           <div>
             {problem.hints.map((h, ind) => {
               return (
@@ -114,10 +120,10 @@ export default function programPage() {
                         // changedHints[ind] = !changedHints[ind];
                         // setHintOpenIndex(changedHints);
                         console.log("1" + hintOpenIndex);
-                        setHintOpenIndex((old)=>{
-                            old[ind]=!old[ind];
-                            return old;
-                        })
+                        setHintOpenIndex((old) => {
+                          old[ind] = !old[ind];
+                          return old;
+                        });
                         console.log("1.2" + hintOpenIndex);
                         console.log("1.3" + hintOpenIndex[0]);
                         // console.log("2" + changedHints);
@@ -153,4 +159,17 @@ export default function programPage() {
       )}
     </div>
   );
+}
+
+
+
+function Dropdown(){
+  return(
+      <div className="dropdown w-80">
+          <div className="dropdown-btn p-3 font-bold flex justify-between">Choose one</div>
+          <div className="dropdown-content">
+            <div>React</div>
+          </div>
+      </div>
+  )
 }
