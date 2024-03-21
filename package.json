@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.6.0",
+    "axios": "^1.6.8",
     "firebase": "^10.9.0",
     "mongoose": "^8.2.2",
     "next": "14.1.3",
