@@ -27,7 +27,14 @@ const problemSchema = new mongoose.Schema({
 
 const userSchema = new mongoose.Schema({
   name: String,
+  username:String,
+  email:String,
+  followers:Number,
+  following:Number,
   avatar_img: String,
+  college:String,
+  solved_problems_count:Number,
+  rank:Number,
   points_scored: Number,
 });
 
