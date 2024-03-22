@@ -78,7 +78,16 @@ export default function activityPage() {
     if (diffTimeInHours <= 24){
       totalDiff+=`${diffTimeInHours} hours`
     }else{
-      totalDiff+=`${diffTimeInHours/24} days`
+      let days = Math.round(diffTimeInHours / 24);
+      totalDiff+=`${days} days`;
+      if(days>=30){
+        let months=Math.round(days/30);
+        totalDiff+=`${months} months`;
+        if(months>=12){
+          let years=Math.round(months/12);
+          totalDiff+=`${years} years`;
+        }
+      }
     }
     return totalDiff;
   }

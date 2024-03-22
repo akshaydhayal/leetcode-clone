@@ -7,6 +7,7 @@ export default function Navbar() {
     { title: "Problems", route: "/problems" },
     { title: "Competitions", route: "/competitions" },
     { title: "Leaderboard", route: "/leaderboard" },
+    { title: "My Profile", route: "/profile" },
     { title: "Login", route: "/signin" },
   ];
   return (

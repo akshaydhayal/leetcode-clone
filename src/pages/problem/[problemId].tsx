@@ -31,8 +31,11 @@ export default function programPage() {
     }
   }
   useEffect(() => {
-    getProblemData();
+    if(problemId){
+      getProblemData();
+    }
   }, [problemId]);
+
   console.log("hints : " + hintOpenIndex);
 
   if (loading) {
