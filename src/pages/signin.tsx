@@ -4,10 +4,16 @@ import { User } from "@/db";
 import axios from "axios";
 import mongoose from "mongoose";
 import { useRouter } from "next/router";
+import { useSetRecoilState } from "recoil";
+import {userState} from "@/store/userAtom";
+
 
 const provider = new GoogleAuthProvider();
 
 export default function signinPage() {
+  const setUser= useSetRecoilState(userState);
+  const router=useRouter();
+
   const [email,setEmail]=useState("");
   const [name,setName]=useState("");
   const [username,setUserName]=useState("");
@@ -33,6 +39,10 @@ export default function signinPage() {
     if(response.data.user===null){
       setIsUserNew(true);
     }
+    else{
+      setUser(response.data.user);
+      router.push(`/users/${response.data.user.username}`)
+    }
     console.log("userStatus: "+response.data);
     console.log("userStatus: "+JSON.stringify(response.data));
     console.log(response.data.user);
@@ -56,7 +66,6 @@ export default function signinPage() {
             setUserName(removeDomain(user.email));
             // let newUserStatus=userExists(user.email);
             userExists(user.email);
-            <RegisterUser/>
             //user.email and user.displayName
         }
         setLoading(false);
@@ -87,6 +96,7 @@ export default function signinPage() {
             email={email}
             username={username}
             userAvatarImage={userAvatarImage}
+            setUser={setUser}
           />
         )}
         {/* <RegisterUser userAvatarImage="https://i.ndtvimg.com/i/2016-04/a_640x480_51459535529.jpg" /> */}
@@ -95,7 +105,7 @@ export default function signinPage() {
   );
 }
 
-function RegisterUser({displayName,email,username,userAvatarImage}){
+function RegisterUser({displayName,email,username,userAvatarImage,setUser}){
   const router=useRouter();
   
   const [userEmail,setUserEmail]=useState(email);
@@ -116,9 +126,10 @@ function RegisterUser({displayName,email,username,userAvatarImage}){
         rank: 1000,
         points_scored: 0,
       });
+      setUser(response.data);
+
       console.log(response);
       console.log(response.data);
-      
       router.push(`/users/${username}`);
     }catch(error){
       console.log(error);

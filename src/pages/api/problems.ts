@@ -8,6 +8,7 @@ export default async function handler(
 ){
   if(req.method==='GET'){
     let problems=await Problem.find().populate("last_user_solved");
+    console.log("problems in problem api route"+problems);
     res.status(201).json(problems);
   }
   if(req.method==='POST'){

@@ -4,8 +4,10 @@ import { initializeApp } from "firebase/app";
 import { dbConnect } from "@/utils/dbConnect";
 import mongoose from "mongoose";
 import Navbar from "@/components/Navbar";
+import {SessionProvider} from "next-auth/react";
+import { RecoilRoot } from "recoil";
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps:{session, ...pageProps} }: AppProps) {
   const firebaseConfig = {
     apiKey: "AIzaSyD06oU0fXpnzlsk_z8XcR4JXqX2mPMHdBA",
     authDomain: "leetcode-clone-e41a9.firebaseapp.com",
@@ -20,9 +22,13 @@ export default function App({ Component, pageProps }: AppProps) {
   // dbConnect();
   
   return (
-    <div>
-      <Navbar/>
-      <Component {...pageProps} />
-    </div>
+    <SessionProvider session={session}>
+      <RecoilRoot>    
+        <div>
+          <Navbar/>
+          <Component {...pageProps} />
+        </div>
+      </RecoilRoot>
+    </SessionProvider>
   )
 }

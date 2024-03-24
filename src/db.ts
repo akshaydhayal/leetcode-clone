@@ -20,6 +20,10 @@ const problemSchema = new mongoose.Schema({
       explaination: String,
     },
   ],
+  test_cases:[{
+    input:String,
+    output:String
+  }],
   hints: [String],
   companies:[String],
   constraints:[String]

@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import {useRouter} from "next/router";
+import { useRecoilValue } from "recoil";
+import { userState } from "@/store/userAtom";
 
 export default function profilePage() {
   const router=useRouter();
   const username=router.query.username;
   console.log("username :"+username);
-
+  
+  const userDetails=useRecoilValue(userState);
+  console.log("userDetails  from userState : "+JSON.stringify(userDetails));
+  
   const [problemShow,setProblemShow]=useState(Array(100).fill(false));
   const [isloading,setIsloading]=useState(true);
   const [user,setUser]=useState(null);
@@ -14,7 +19,7 @@ export default function profilePage() {
   async function getUserData(){
     try{
         const response=await axios.get("http://localhost:3000/api/user",{
-            headers:{username:username}
+            headers:{email:`${username}@gmail.com`}
         });
         console.log("getuserSata fn");
         const data=response.data;
@@ -44,6 +49,20 @@ export default function profilePage() {
             }
         })
     })
+  }
+  if(isloading){
+    return<div>Loading...please wait!!!</div>
+  }
+  if(!isloading && !user){
+    return (
+    <div className="flex justify-center">
+      <div className="w-4/5">
+        <p className="text-2xl text-slate-400 font-medium">Invalid User Link</p>
+        <p className="text-base text-slate-400 mt-6">User {username} does not exist!</p>
+        <button className="text-sm font-light mt-2">View all users</button>
+      </div>
+    </div>
+    );
   }
   return (
     <div className="flex justify-center">

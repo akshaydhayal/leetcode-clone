@@ -6,6 +6,7 @@ export default function programPage() {
   const router = useRouter();
   const problemId = router.query.problemId;
   const [problem, setProblem] = useState(null);
+  const [problemTestCases,setProblemTestCases]=useState(null);
   const [loading, setLoading] = useState(true);
   const [hintOpenIndex, setHintOpenIndex] = useState([]);
 
@@ -22,6 +23,7 @@ export default function programPage() {
         const data = await response.json();
         console.log(data);
         setProblem(data);
+        setProblemTestCases(data.test_cases);
         setHintOpenIndex(Array(data.hints.length).fill(false));
         setLoading(false);
       } catch (error) {
@@ -36,7 +38,33 @@ export default function programPage() {
     }
   }, [problemId]);
 
-  console.log("hints : " + hintOpenIndex);
+  // function findProblemTestCasesFromExamples(examples){
+  //   examples: [
+  //   {
+  //     input: 'nums = [2,7,11,15], target = 9',
+  //     output: '[0,1]',
+  //     _id: new ObjectId('65facb11273c1e18377082da')
+  //   }
+  // ]
+
+  //   let testCases=examples.map((e)=>{
+  //     let ip=e.input;
+  //     let input='';
+  //     let copyFlag=false;
+  //     for(let i=0; i<ip.length; i++){
+  //       if(ip[i]==='='){
+  //         copyFlag=true;
+  //       }else if(ip[i]===','){
+  //         copyFlag=false;
+  //       }
+  //       if(copyFlag){
+  //         input+=ip[i];
+  //       }
+  //     }
+  //     return input;
+  //   })
+  //   return testCases;
+  // }
 
   if (loading) {
     return <div>Loading...please wait!!</div>;
@@ -107,7 +135,7 @@ export default function programPage() {
             </ul>
           </div>
 
-          <EditorComponent/>
+          <EditorComponent testCases={problemTestCases}/>
           
           <div>
             {problem.hints.map((h, ind) => {

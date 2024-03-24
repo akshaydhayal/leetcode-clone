@@ -1,6 +1,9 @@
 import {useEffect, useState} from "react";
+import {useRouter} from "next/router";
 
-export default function problemsPage() {
+ export default function problemsPage() {
+  const router=useRouter();
+
   const [problems,setProblems]=useState([]);
   const [isLoading,setLoading]=useState(true);
   const problemss = [
@@ -74,8 +77,12 @@ export default function problemsPage() {
               <div className="mb-6">
                 <div className="flex justify-between mb-1">
                   <div className="flex gap-16">
-                    <p className="text-lg text-slate-600 cursor-pointer">{p._id}</p>
-                    <p className="text-lg text-slate-600 cursor-pointer">{p.title}</p>
+                    <p className="text-lg text-slate-600 cursor-pointer" onClick={()=>{
+                      router.push(`/problem/${p._id}`)
+                    }}>{p._id}</p>
+                    <p className="text-lg text-slate-600 cursor-pointer" onClick={()=>{
+                      router.push(`/problem/${p._id}`)
+                    }}>{p.title}</p>
                   </div>
                   <div className="flex gap-3">
                     <p className="text-lg text-slate-600">recently solved by</p>
