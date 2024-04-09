@@ -1,31 +1,31 @@
-import {useEffect,useState} from "react";
+import { useEffect, useState } from "react";
 
 export default function leaderboardPage() {
-  const [userss,setUser]=useState([]);
+  const [userss, setUser] = useState([]);
   const users = [
     {
-      rank:1,
+      rank: 1,
       name: "Akshay Dhayal",
       avatar_img:
         "https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp",
       points_scored: 121,
     },
     {
-      rank:2,
+      rank: 2,
       name: "Akshay Dhayal",
       avatar_img:
         "https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp",
       points_scored: 212,
     },
-    {   
-        rank:3,
+    {
+      rank: 3,
       name: "Akshay Dhayal",
       avatar_img:
         "https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp",
       points_scored: 221,
     },
     {
-        rank:4,
+      rank: 4,
       name: "Akshay Dhayal",
       avatar_img:
         "https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp",
@@ -33,38 +33,51 @@ export default function leaderboardPage() {
     },
   ];
 
-  async function getUsers(){
-    const response=await fetch("http://localhost:3000/api/users");
-    const data=await response.json();
+  async function getUsers() {
+    const response = await fetch("http://localhost:3000/api/users");
+    const data = await response.json();
     console.log(data);
     setUser(data);
   }
-  useEffect(()=>{
+  useEffect(() => {
     getUsers();
-  },[])
+  }, []);
 
   return (
-    <div className="flex justify-center">
-      <div className="flex w-4/5 gap-12 mt-8">
-        <div className="w-3/4">
-          <p className="text-2xl text-slate-600 mb-6">Leaderboard</p>
+    <div className="flex justify-center h-screen">
+      <div className="flex flex-col w-9/12">
+        <p className="text-2xl text-slate-100 mb-6">Leaderboard</p>
+        <table className=" w-full">
+          <thead className="border-b border-slate-200">
+            <tr>
+              <th className="text-white w-1/5 text-start p-2">Rank</th>
+              <th className="text-white w-1/5 text-start p-2">User</th>
+              <th className="text-white w-2/5 text-start p-2">College</th>
+              <th className="text-white w-1/5 text-start p-2">Points</th>
+            </tr>
+          </thead>
+          <tbody>
+            {userss &&
+              userss.map((u) => {
+                return (
+                  <tr className="border-b border-slate-200">
+                    <td className="text-slate-100 w-1/5 p-2">
+                      <div className="flex gap-5 items-center">
+                        <p>1</p>
+                        <img className="w-8" src={u.avatar_img} />
+                      </div>
+                    </td>
 
-          { userss.length>0 && userss.map((u) => {
-            return (
-              <div className="flex gap-36 mb-2">
-                <div className="flex gap-10">
-                    <p className="text-lg text-slate-600">1</p>
-                    <img className="w-9" src={u.avatar_img} />
-                <p className="text-lg text-slate-600 cursor-pointer">
-                  {u.name}
-                </p>
-                </div>
-                <p className="text-lg text-slate-600">{u.points_scored}</p>
-              </div>
-            );
-          })}
-        </div>
-        <div className="">Top contributors</div>
+                    <td className="text-slate-100 w-1/5 p-2">{u.name}</td>
+                    <td className="text-slate-100 w-2/5 p-2">{u.college}</td>
+                    <td className="text-slate-100 w-1/5 p-2">
+                      {u.points_scored}
+                    </td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
       </div>
     </div>
   );

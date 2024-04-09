@@ -1,53 +1,11 @@
 import { useEffect, useState } from "react";
 import { act } from "react-dom/test-utils";
+import Chart from "chart.js/auto";
 
 export default function activityPage() {
   const [submissions, setSubmissions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const activity = [
-    {
-      name: "Akshay Dhayal(randomzz)",
-      problem: "#321",
-      time: "about 3 hours ago",
-      correct: false,
-    },
-    {
-      name: "Akshay Dhayal(randomzz)",
-      problem: "#321",
-      time: "about 3 hours ago",
-      correct: true,
-    },
-    {
-      name: "Akshay Dhayal(randomzz)",
-      problem: "#321",
-      time: "about 3 hours ago",
-      correct: false,
-    },
-    {
-      name: "Akshay Dhayal(randomzz)",
-      problem: "#321",
-      time: "about 3 hours ago",
-      correct: false,
-    },
-    {
-      name: "Akshay Dhayal(randomzz)",
-      problem: "#321",
-      time: "about 3 hours ago",
-      correct: false,
-    },
-    {
-      name: "Akshay Dhayal(randomzz)",
-      problem: "#321",
-      time: "about 3 hours ago",
-      correct: false,
-    },
-    {
-      name: "Akshay Dhayal(randomzz)",
-      problem: "#321",
-      time: "about 3 hours ago",
-      correct: false,
-    },
-  ];
+
   async function getActivityData() {
     try {
       const response = await fetch("http://localhost:3000/api/submission");
@@ -74,68 +32,96 @@ export default function activityPage() {
     const diffTimeInHours = Math.round(
       (currTime - submitTime) / (1000 * 60 * 60)
     );
-    let totalDiff='';
-    if (diffTimeInHours <= 24){
-      totalDiff+=`${diffTimeInHours} hours`
-    }else{
+    let totalDiff = "";
+    if (diffTimeInHours <= 24) {
+      totalDiff += `${diffTimeInHours} hours`;
+    } else {
       let days = Math.round(diffTimeInHours / 24);
-      totalDiff+=`${days} days`;
-      if(days>=30){
-        let months=Math.round(days/30);
-        totalDiff+=`${months} months`;
-        if(months>=12){
-          let years=Math.round(months/12);
-          totalDiff+=`${years} years`;
+      totalDiff += `${days} days`;
+      if (days >= 30) {
+        let months = Math.round(days / 30);
+        totalDiff += `${months} months`;
+        if (months >= 12) {
+          let years = Math.round(months / 12);
+          totalDiff += `${years} years`;
         }
       }
     }
     return totalDiff;
   }
   return (
-    <div className="flex justify-center">
-      <div className="w-4/5 flex">
-        <div className="w-3/4">
-          <p className="text-2xl text-slate-600 mb-6">Submissions</p>
-          {submissions.map((act) => {
-            return (
-              <div className="flex justify-between mb-2">
-                <p className="text-lg text-slate-600 cursor-pointer">
-                  {act.user.name}
-                </p>
-                <p className="text-lg text-slate-600 cursor-pointer">
-                  {act.problem._id}
-                </p>
-                {/* <p className="text-lg text-slate-600">{act.createdAt}</p> */}
-                {/* <p className="text-lg text-slate-600">{Math.round((currTime-new Date(act.createdAt))/(1000*60*60))}</p> */}
-                <p className="text-lg text-slate-600">
-                  about {calculateSubmitTime(act.createdAt)} ago
-                </p>
-                <img
-                  className="w-8"
-                  src={
-                    act.problem_correct === true ? "correct.png" : "wrong.png"
-                  }
-                />
-              </div>
-            );
-          })}
+    <div className="flex justify-center h-screen">
+      <div className="flex flex-col w-9/12">
+        <p className="text-2xl text-slate-100 mb-6">Submissions</p>
+        <table className=" w-full">
+          <thead className="border-b border-slate-200">
+            <tr>
+              <th className="text-white w-1/5 text-start p-2">User</th>
+              <th className="text-white w-1/5 text-start p-2">Problem</th>
+              <th className="text-white w-2/5 text-start p-2">Submitted</th>
+              <th className="text-white w-1/5 text-start p-2">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {submissions &&
+              submissions.map((act) => {
+                return (
+                  <tr className="border-b border-slate-200">
+                    <td className="text-slate-100 w-1/5 p-2">
+                      {act.user?.name}({act.user?.username})
+                    </td>
 
-          {/* {activity.map((act) => {
-            return (
-              <div className="flex justify-between mb-2">
-                <p className="text-lg text-slate-600 cursor-pointer">{act.name}</p>
-                <p className="text-lg text-slate-600 cursor-pointer">{act.problem}</p>
-                <p className="text-lg text-slate-600">{act.time}</p>
-                <img
-                  className="w-8"
-                  src={act.correct === true ? "correct.png" : "wrong.png"}
-                />
-              </div>
-             );
-          })} */}
-        </div>
-        <div>Activity chart</div>
+                    <td className="text-slate-100 w-1/5 p-2">
+                      {act.problem?._id}
+                    </td>
+                    <td className="text-slate-100 w-2/5 p-2">
+                      about {calculateSubmitTime(act.createdAt)} ago
+                    </td>
+                    <td className="text-slate-100 w-1/5 p-2">
+                      <img
+                        className="w-6 h-6"
+                        src={
+                          act.problem_correct === true
+                            ? "correct.png"
+                            : "wrong.png"
+                        }
+                      />
+                    </td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
       </div>
     </div>
   );
 }
+
+// export function ActivityChart(){
+//   const labels = Utils.months({ count: 10 });
+//   const data = {
+//     labels: labels,
+//     datasets: [
+//       {
+//         label: "My First Dataset",
+//         data: [65, 59, 80, 81, 56, 55, 40, 3, 84, 12],
+//         fill: false,
+//         borderColor: "rgb(75, 192, 192)",
+//         tension: 0.1,
+//         pointBackgroundColor: "red",
+//         pointBorderWidth: 9,
+//       },
+//     ],
+//   };
+//   const config = {
+//     type: "line",
+//     data: data,
+//   };
+//   const myLineChart = new Chart(ctx, config);
+
+//   return(
+//     <div>
+
+//     </div>
+//   )
+// }

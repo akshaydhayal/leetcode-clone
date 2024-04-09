@@ -2,44 +2,44 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function profilePagee() {
-  const [problemShow,setProblemShow]=useState(Array(100).fill(false));
-  const [isloading,setIsloading]=useState(true);
-  const [user,setUser]=useState(null);
+  const [problemShow, setProblemShow] = useState(Array(100).fill(false));
+  const [isloading, setIsloading] = useState(true);
+  const [user, setUser] = useState(null);
 
-  async function getUserData(){
-    try{
-        const response=await axios.get("http;//localhost:3000/api/user",{
-            headers:{username:"Akshayyy"}
-        });
-        const data=response.data;
-        console.log(data);
-        setIsloading(false);
-        if(data.user){
-           setUser(data.user); 
-        }
-    }catch(error){
-        setIsloading(false);
-        console.log(error);
+  async function getUserData() {
+    try {
+      const response = await axios.get("http;//localhost:3000/api/user", {
+        headers: { username: "Akshayyy" },
+      });
+      const data = response.data;
+      console.log(data);
+      setIsloading(false);
+      if (data.user) {
+        setUser(data.user);
+      }
+    } catch (error) {
+      setIsloading(false);
+      console.log(error);
     }
   }
-  useEffect(()=>{
+  useEffect(() => {
     getUserData();
-  },[])
-  
-  function handleMouseEnter(ind){
-    setProblemShow((old)=>{
-        return old.map((o,i)=>{
-            if(i===ind){
-                return !o;
-            }else{
-                return o;
-            }
-        })
-    })
+  }, []);
+
+  function handleMouseEnter(ind) {
+    setProblemShow((old) => {
+      return old.map((o, i) => {
+        if (i === ind) {
+          return !o;
+        } else {
+          return o;
+        }
+      });
+    });
   }
   return (
-    <div className="flex justify-center">
-      <div className="w-4/5 flex  gap-8">
+    <div className="flex justify-center h-screen">
+      <div className="w-4/5 flex h-screen gap-8">
         <div className="w-3/12">
           <p className="text-slate-400 text-base">akshaydhayalkd99@gmail.com</p>
           <img
@@ -75,21 +75,31 @@ export default function profilePagee() {
             </div>
           </div>
           <div className="flex justify-end">
-            <button className="text-sm text-slate-400 p-1 px-2 hover:text-slate-100">Edit profile</button>
+            <button className="text-sm text-slate-400 p-1 px-2 hover:text-slate-100">
+              Edit profile
+            </button>
           </div>
         </div>
 
         <div className="w-6/12">
           <p className="text-slate-400 text-2xl font-semibold">Problems</p>
           <div className="flex flex-wrap gap-1 mt-6">
-            {Array(100).fill(1).map((p,ind) => {
+            {Array(100)
+              .fill(1)
+              .map((p, ind) => {
                 return (
-                  <div className="text-slate-400 text-base p-2 border-0 border-white"
-                
+                  <div className="text-slate-400 text-base p-2 border-0 border-white">
+                    <p
+                      onMouseEnter={() => handleMouseEnter(ind)}
+                      onMouseLeave={() => handleMouseEnter(ind)}
                     >
-                    <p onMouseEnter={()=>handleMouseEnter(ind)}
-                  onMouseLeave={()=>handleMouseEnter(ind)}>{p}</p>
-                    {problemShow[ind] && <p className="relative bottom-12 text-xs text-slate-400">problem 1</p>}
+                      {p}
+                    </p>
+                    {problemShow[ind] && (
+                      <p className="relative bottom-12 text-xs text-slate-400">
+                        problem 1
+                      </p>
+                    )}
                   </div>
                 );
               })}
