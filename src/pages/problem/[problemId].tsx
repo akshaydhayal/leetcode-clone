@@ -160,7 +160,7 @@ export default function programPage() {
         </div>
       )}
       <div className="w-1/2 h-[90vh] overflow-auto">
-        <EditorComponent testCases={problemTestCases} problemId={problem._id} />
+        <EditorComponent testCases={problemTestCases} problemId={problem._id} problemPoints={problem.point} />
       </div>
     </div>
   );

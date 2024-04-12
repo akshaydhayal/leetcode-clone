@@ -14,4 +14,5 @@ export default async function handler(
     await user.save();
     res.status(201).json(user);
   }
+
 }

@@ -8,7 +8,9 @@ export default function activityPage() {
 
   async function getActivityData() {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/submission`);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/submission`
+      );
       const data = await response.json();
       console.log(data);
       setSubmissions(data);
@@ -27,8 +29,8 @@ export default function activityPage() {
   // }
 
   function calculateSubmitTime(time) {
-    const currTime:any = new Date();
-    const submitTime:any = new Date(time);
+    const currTime: any = new Date();
+    const submitTime: any = new Date(time);
     const diffTimeInHours = Math.round(
       (currTime - submitTime) / (1000 * 60 * 60)
     );
@@ -56,10 +58,10 @@ export default function activityPage() {
         <table className=" w-full">
           <thead className="border-b border-slate-200">
             <tr>
-              <th className="text-white w-1/5 text-start p-2">User</th>
-              <th className="text-white w-1/5 text-start p-2">Problem</th>
-              <th className="text-white w-2/5 text-start p-2">Submitted</th>
-              <th className="text-white w-1/5 text-start p-2">Status</th>
+              <th className="text-white w-1/5 text-start p-2 px-4">User</th>
+              <th className="text-white w-1/5 text-start p-2 px-4">Problem</th>
+              <th className="text-white w-2/5 text-start p-2 px-4">Submitted</th>
+              <th className="text-white w-1/5 text-start p-2 px-4">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -67,17 +69,17 @@ export default function activityPage() {
               submissions.map((act) => {
                 return (
                   <tr className="border-b border-slate-200">
-                    <td className="text-slate-100 w-1/5 p-2">
+                    <td className="text-slate-100 w-1/5 p-2 px-4">
                       {act.user?.name}({act.user?.username})
                     </td>
 
-                    <td className="text-slate-100 w-1/5 p-2">
+                    <td className="text-slate-100 w-1/5 p-2 px-4">
                       {act.problem?._id}
                     </td>
-                    <td className="text-slate-100 w-2/5 p-2">
+                    <td className="text-slate-100 w-2/5 p-2 px-4">
                       about {calculateSubmitTime(act.createdAt)} ago
                     </td>
-                    <td className="text-slate-100 w-1/5 p-2">
+                    <td className="text-slate-100 w-1/5 p-2 px-4">
                       <img
                         className="w-6 h-6"
                         src={

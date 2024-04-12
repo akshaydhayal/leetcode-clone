@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import Navbar from "@/components/Navbar";
 import { SessionProvider } from "next-auth/react";
 import { RecoilRoot } from "recoil";
+import { Toaster } from "react-hot-toast";
 
 export default function App({
   Component,
@@ -28,6 +29,7 @@ export default function App({
     <SessionProvider session={session}>
       <RecoilRoot>
         <div className="m-0 p-0 bg-gray-900">
+          <Toaster />
           <Navbar />
           <Component {...pageProps} />
         </div>

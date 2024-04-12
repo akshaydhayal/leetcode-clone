@@ -3,13 +3,15 @@ import { useState } from "react";
 import axios from "axios";
 import { userState } from "@/store/userAtom";
 import { useRecoilValue } from "recoil";
+import toast from "react-hot-toast";
 
-export default function EditorComponent({ testCases, problemId }) {
+export default function EditorComponent({ testCases, problemId,problemPoints }) {
   const user = useRecoilValue(userState);
 
   const [language, setLanguage] = useState({
     language_name: "javascript",
     language_id: 63,
+    lang_basic_code: `console.log("hello world);`,
   });
   const [code, setCode] = useState("");
   const monaco = useMonaco();
@@ -61,6 +63,10 @@ export default function EditorComponent({ testCases, problemId }) {
   }
 
   async function handleRunCode() {
+    if (!user) {
+      toast.error("Signin to Compile the code!!");
+      return;
+    }
     const response = await axios.post(
       process.env.NEXT_PUBLIC_RAPID_API_URL,
       {
@@ -92,13 +98,23 @@ export default function EditorComponent({ testCases, problemId }) {
   }
 
   async function addSubmission(isProblemAccepted) {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/submission`, {
-      user: user._id,
-      problem: problemId,
-      problem_correct: isProblemAccepted,
-    });
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/submission`,
+      {
+        user: user._id,
+        problem: problemId,
+        problem_correct: isProblemAccepted,
+      }
+    );
     console.log("submission fn");
     console.log(response.data);
+    
+    const response2=await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user`,{
+      userId:user._id,
+      points:problemPoints,
+    });
+    console.log("user updated after submission")
+    console.log(response2.data);
   }
 
   async function handleGetMultpleCodeResult(tokens) {
@@ -172,6 +188,10 @@ export default function EditorComponent({ testCases, problemId }) {
   }
 
   async function handleSubmitCode() {
+    if (!user) {
+      toast.error("First Signin to make a submission!!");
+      return;
+    }
     let submissions =
       testCases &&
       testCases.map((t) => {
@@ -227,6 +247,9 @@ export default function EditorComponent({ testCases, problemId }) {
         className="p-0.5 px-1.5"
         onChange={(e) => {
           setLanguage(JSON.parse(e.target.value));
+          setCode(JSON.parse(e.target.value).lang_basic_code);
+          console.log(`code : ${JSON.parse(e.target.value).lang_basic_code}`);
+          // setCode(JSON.parse(e.target.value.basic_code));
           console.log(JSON.parse(e.target.value));
         }}
       >
@@ -234,6 +257,7 @@ export default function EditorComponent({ testCases, problemId }) {
           value={JSON.stringify({
             language_name: "javascript",
             language_id: 63,
+            lang_basic_code: `console.log("hello world");`,
           })}
           selected
         >
@@ -243,25 +267,64 @@ export default function EditorComponent({ testCases, problemId }) {
           value={JSON.stringify({
             language_name: "typescript",
             language_id: 74,
+            lang_basic_code: `console.log("hello world");`,
           })}
         >
           Typescript
         </option>
         <option
-          value={JSON.stringify({ language_name: "cpp", language_id: 54 })}
+          value={JSON.stringify({
+            language_name: "cpp",
+            language_id: 54,
+            lang_basic_code: `
+#include <iostream>
+using namespace std;
+int main() {
+  int num1, num2, sum;
+  cin >> num1;
+  cin >> num2;
+  sum = num1 + num2;
+  cout << sum;
+  return 0;
+} `,
+          })}
         >
           C++
         </option>
-        <option value={JSON.stringify({ language_name: "c", language_id: 50 })}>
+        <option
+          value={JSON.stringify({
+            language_name: "c",
+            language_id: 50,
+            lang_basic_code: `
+#include <iostream>
+using namespace std;
+int main() {
+  int num1, num2, sum;
+  cin >> num1;
+  cin >> num2;
+  sum = num1 + num2;
+  cout << sum;
+  return 0;
+} `,
+          })}
+        >
           C
         </option>
         <option
-          value={JSON.stringify({ language_name: "python", language_id: 71 })}
+          value={JSON.stringify({
+            language_name: "python",
+            language_id: 71,
+            lang_basic_code: `print("hello world");`,
+          })}
         >
           Python
         </option>
         <option
-          value={JSON.stringify({ language_name: "java", language_id: 62 })}
+          value={JSON.stringify({
+            language_name: "java",
+            language_id: 62,
+            lang_basic_code: `print("hello world");`,
+          })}
         >
           Java
         </option>
@@ -274,17 +337,19 @@ export default function EditorComponent({ testCases, problemId }) {
             height="60vh"
             width="50vw"
             language={language.language_name}
-            defaultValue={`
-#include <iostream> 
-using namespace std;
-int main() {
-  int num1, num2, sum;  
-  cin >> num1;  
-  cin >> num2;  
-  sum = num1 + num2;  
-  cout << sum;  
-  return 0; 
-} `}
+            defaultValue={code}
+            // defaultValue={language.lang_basic_code}
+            //             defaultValue={`
+            // #include <iostream>
+            // using namespace std;
+            // int main() {
+            //   int num1, num2, sum;
+            //   cin >> num1;
+            //   cin >> num2;
+            //   sum = num1 + num2;
+            //   cout << sum;
+            //   return 0;
+            // } `}
             value={code}
             onChange={handleEditorChange}
             // theme="hc-black"

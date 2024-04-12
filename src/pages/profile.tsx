@@ -37,6 +37,9 @@ export default function profilePagee() {
       });
     });
   }
+  if(!user){
+    return <p>Profile loading!</p>
+  }
   return (
     <div className="flex justify-center h-screen">
       <div className="w-4/5 flex h-screen gap-8">
@@ -46,8 +49,8 @@ export default function profilePagee() {
             className="w-full p-2"
             src="https://lh3.googleusercontent.com/a/ACg8ocIdX3ZWhX3G4ulTsUtiDIS-eWqhAVFrBJz_xY5Gyi82=s96-c"
           />
-          <p className="text-slate-400 text-xl font-semibold">Akshay</p>
-          <p className="text-slate-400 text-base">NITK Surathkal</p>
+          <p className="text-slate-400 text-xl font-semibold">{user.name}</p>
+          <p className="text-slate-400 text-base">{user.college}</p>
           <div className="flex">
             <div className="border-2 border-white flex flex-col items-center p-2 px-3">
               <p className="text-slate-400 text-2xl font-semibold hover:text-slate-200">
@@ -133,8 +136,10 @@ export default function profilePagee() {
                   <p className="text-slate-400 text-2xl font-medium">306</p>
                 </div>
                 <div className="w-1/2 flex flex-col items-center">
-                  <p className="text-slate-400 text-lg">unsolved</p>
-                  <p className="text-slate-400 text-2xl font-medium">0</p>
+                  <p className="text-slate-400 text-lg">solved</p>
+                  <p className="text-slate-400 text-2xl font-medium">
+                    {user?.solved_problems_count}
+                  </p>
                 </div>
               </div>
             </div>
