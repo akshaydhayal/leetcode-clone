@@ -92,7 +92,7 @@ export default function EditorComponent({ testCases, problemId }) {
   }
 
   async function addSubmission(isProblemAccepted) {
-    const response = await axios.post("http://localhost:3000/api/submission", {
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/submission`, {
       user: user._id,
       problem: problemId,
       problem_correct: isProblemAccepted,

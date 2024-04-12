@@ -8,7 +8,7 @@ export default function activityPage() {
 
   async function getActivityData() {
     try {
-      const response = await fetch("http://localhost:3000/api/submission");
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/submission`);
       const data = await response.json();
       console.log(data);
       setSubmissions(data);

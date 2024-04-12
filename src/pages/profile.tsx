@@ -8,7 +8,7 @@ export default function profilePagee() {
 
   async function getUserData() {
     try {
-      const response = await axios.get("http;//localhost:3000/api/user", {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user`, {
         headers: { username: "Akshayyy" },
       });
       const data = response.data;

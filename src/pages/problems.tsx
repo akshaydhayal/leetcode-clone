@@ -9,7 +9,7 @@ export default function problemsPage() {
 
   async function getProblems() {
     try {
-      const response = await fetch("http://localhost:3000/api/problems");
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/problems`);
       const data = await response.json();
       console.log(data);
       setProblems(data);

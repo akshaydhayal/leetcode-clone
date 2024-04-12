@@ -18,8 +18,8 @@ export default function profilePage() {
 
   async function getUserData(){
     try{
-        const response=await axios.get("http://localhost:3000/api/user",{
-            headers:{email:`${username}@gmail.com`}
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user`, {
+          headers: { email: `${username}@gmail.com` },
         });
         console.log("getuserSata fn");
         const data=response.data;

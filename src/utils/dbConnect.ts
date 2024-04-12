@@ -7,9 +7,11 @@ export async function dbConnect(){
     }
     alreadyConnected=true;
     console.log("hello from dbConnect");
-    await mongoose.connect("mongodb+srv://akshay:akshay@cluster0.jy7weei.mongodb.net/",{
-        dbName:"Leetcode"
-    }).then(()=>{
+    await mongoose
+      .connect(process.env.NEXT_PUBLIC_MONGO_URL, {
+        dbName: "Leetcode",
+      })
+      .then(() => {
         console.log("mongoose connected!!");
-    })
+      });
 }

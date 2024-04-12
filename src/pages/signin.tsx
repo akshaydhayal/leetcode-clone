@@ -30,7 +30,7 @@ export default function signinPage() {
   }
 
   async function userExists(userEmail) {
-    const response = await axios.get("http://localhost:3000/api/user", {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user`, {
       headers: {
         email: userEmail,
       },
@@ -132,7 +132,7 @@ function RegisterUser({
 
   async function handleRegisterUser() {
     try {
-      const response = await axios.post("http://localhost:3000/api/users", {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users`, {
         name,
         username,
         email: userEmail,

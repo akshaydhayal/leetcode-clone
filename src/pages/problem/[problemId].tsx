@@ -15,7 +15,7 @@ export default function programPage() {
     console.log(`problemId : ${problemId}`);
     if (problemId) {
       try {
-        const response = await fetch("http://localhost:3000/api/problem", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/problem`, {
           headers: {
             problem_id: `${problemId}`,
           },

@@ -34,7 +34,7 @@ export default function leaderboardPage() {
   ];
 
   async function getUsers() {
-    const response = await fetch("http://localhost:3000/api/users");
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users`);
     const data = await response.json();
     console.log(data);
     setUser(data);
