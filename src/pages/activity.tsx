@@ -27,8 +27,8 @@ export default function activityPage() {
   // }
 
   function calculateSubmitTime(time) {
-    const currTime = new Date();
-    const submitTime = new Date(time);
+    const currTime:any = new Date();
+    const submitTime:any = new Date(time);
     const diffTimeInHours = Math.round(
       (currTime - submitTime) / (1000 * 60 * 60)
     );

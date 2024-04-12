@@ -24,9 +24,9 @@ export default function loginpage(){
     return<div>
         {session.data && <div>
             <p>Signed in as : {session.data.user.email}</p>
-            <button onClick={signOut}>signOut</button>
+            <button onClick={()=>{signOut}}>signOut</button>
         </div>    
         }
-        {!session.data && <button onClick={signIn}>signIn</button>}
+        {!session.data && <button onClick={()=>{signIn}}>signIn</button>}
     </div>
 }

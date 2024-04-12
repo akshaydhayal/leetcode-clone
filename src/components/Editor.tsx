@@ -82,7 +82,7 @@ export default function EditorComponent({ testCases, problemId }) {
     );
     const data = response.data;
     console.log(data);
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       setTimeout(() => {
         console.log("after waiting 1.5 sec");
         resolve();
@@ -211,7 +211,7 @@ export default function EditorComponent({ testCases, problemId }) {
       }
       console.log(tokens);
 
-      await new Promise((resolve) => {
+      await new Promise<void>((resolve) => {
         setTimeout(() => {
           console.log("after waiting 1.5 sec");
           resolve();
