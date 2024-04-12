@@ -22,7 +22,7 @@ export default function App({
   };
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  // dbConnect();
+  dbConnect();
 
   return (
     <SessionProvider session={session}>
