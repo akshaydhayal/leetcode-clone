@@ -17,10 +17,10 @@ export default function Navbar() {
     <div className="h-[10vh] bg-black flex justify-between items-center w-full px-10">
       <p className="text-white text-4xl p-4 font-semibold">Coder</p>
       <div className="flex justify-start gap-11 px-4">
-        {nav.map((item) => {
+        {nav.map((item,ind) => {
           if (item.title === "Login" && user) {
             return (
-              <p
+              <p key={ind}
                 className="text-slate-400 text-lg hover:text-white cursor-pointer"
                 onClick={() => {
                   setUser(null);
