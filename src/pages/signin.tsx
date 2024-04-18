@@ -143,6 +143,7 @@ function RegisterUser({
         solved_problems_count: 0,
         rank: 1000,
         points_scored: 0,
+        admin_status:false,
       });
       setUser(response.data);
 

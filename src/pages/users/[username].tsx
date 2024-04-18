@@ -75,8 +75,8 @@ export default function profilePage() {
           />
           <p className="text-slate-400 text-xl font-semibold">{user.name}</p>
           <p className="text-slate-400 text-base">{user.college}</p>
-          <div className="flex">
-            <div className="border-2 border-white flex flex-col items-center p-2 px-3">
+          <div className="w-full md:flex ">
+            <div className="border-2 border-white flex flex-col items-center">
               <p className="text-slate-400 text-2xl font-semibold hover:text-slate-200">
                 {user.followers}
               </p>
@@ -84,7 +84,7 @@ export default function profilePage() {
                 Followers
               </p>
             </div>
-            <div className="border-2 border-white flex flex-col items-center p-2 px-3">
+            <div className="border-2 border-white flex flex-col items-center ">
               <p className="text-slate-400 text-2xl font-semibold hover:text-slate-200">
                 {user.following}
               </p>
@@ -92,7 +92,7 @@ export default function profilePage() {
                 Following
               </p>
             </div>
-            <div className="border-2 border-white flex flex-col items-center p-2 px-3">
+            <div className="border-2 border-white flex flex-col items-center">
               <p className="text-slate-400 text-2xl font-semibold hover:text-slate-200">
                 {user.solved_problems_count}
               </p>
@@ -103,7 +103,11 @@ export default function profilePage() {
           </div>
           <div className="flex justify-end">
             <button className="text-sm text-slate-400 p-1 px-2 hover:text-slate-100">Edit profile</button>
-          </div>
+            {user.admin_status && 
+            <button className="text-sm text-slate-400 p-1 px-2 hover:text-slate-100"
+            onClick={()=>{router.push('/dashboard')}}>Manage Questions</button>
+            }
+            </div>
         </div>
 
         <div className="w-6/12">

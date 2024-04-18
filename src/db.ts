@@ -40,6 +40,7 @@ const userSchema = new mongoose.Schema({
   solved_problems_count:Number,
   rank:Number,
   points_scored: Number,
+  admin_status:Boolean
 });
 
 const submissionSchema = new mongoose.Schema(

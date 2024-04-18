@@ -1,16 +1,23 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useRecoilValue } from "recoil";
+import { userState } from "@/store/userAtom";
 
 export default function profilePagee() {
   const [problemShow, setProblemShow] = useState(Array(100).fill(false));
   const [isloading, setIsloading] = useState(true);
   const [user, setUser] = useState(null);
 
+  const userLoggedIn=useRecoilValue(userState);
+
   async function getUserData() {
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user`, {
-        headers: { username: "Akshayyy" },
-      });
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user`,
+        {
+          headers: { username: "Akshayyy" },
+        }
+      );
       const data = response.data;
       console.log(data);
       setIsloading(false);
@@ -37,24 +44,27 @@ export default function profilePagee() {
       });
     });
   }
-  if(!user){
-    return <p>Profile loading!</p>
+  if (!userLoggedIn) {
+    return <p>Profile loading!</p>;
   }
   return (
     <div className="flex justify-center h-screen">
       <div className="w-4/5 flex h-screen gap-8">
         <div className="w-3/12">
-          <p className="text-slate-400 text-base">akshaydhayalkd99@gmail.com</p>
+          <p className="text-slate-400 text-base">
+            {/* akshaydhayalpkd99@gmail.com */}
+            {userLoggedIn.username}
+          </p>
           <img
             className="w-full p-2"
             src="https://lh3.googleusercontent.com/a/ACg8ocIdX3ZWhX3G4ulTsUtiDIS-eWqhAVFrBJz_xY5Gyi82=s96-c"
           />
-          <p className="text-slate-400 text-xl font-semibold">{user.name}</p>
-          <p className="text-slate-400 text-base">{user.college}</p>
+          <p className="text-slate-400 text-xl font-semibold">{userLoggedIn.name}</p>
+          <p className="text-slate-400 text-base">{userLoggedIn.college}</p>
           <div className="flex">
             <div className="border-2 border-white flex flex-col items-center p-2 px-3">
               <p className="text-slate-400 text-2xl font-semibold hover:text-slate-200">
-                0
+                {userLoggedIn.followers}
               </p>
               <p className="text-slate-400 text-base hover:text-slate-200">
                 Followers
@@ -113,7 +123,7 @@ export default function profilePagee() {
           <div>
             <p className="text-slate-400 text-base">Ranks</p>
             <div className="flex gap-8">
-              <p className="text-slate-400 text-xl">#6977</p>
+              <p className="text-slate-400 text-xl">#{user.rank}</p>
               <p className="text-slate-400 text-base">Overall</p>
             </div>
           </div>
