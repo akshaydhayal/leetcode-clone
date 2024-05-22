@@ -28,7 +28,8 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <RecoilRoot>
-        <div className="m-0 p-0 bg-gray-900">
+        {/* <div className="m-0 p-0 bg-gray-900"> */}
+        <div className="m-0 p-0 bg-cover bg-center bg-fixed bg-[url('https://images.unsplash.com/photo-1470955233021-2c79a52e5034?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]">
           <Toaster />
           <Navbar />
           <Component {...pageProps} />

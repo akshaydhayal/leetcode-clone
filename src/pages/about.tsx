@@ -3,8 +3,8 @@ export default function aboutPage() {
     <div className="flex justify-center h-screen">
       <div className="w-5/6 flex mt-8 gap-16">
         <div>
-          <p className="text-xl text-slate-100 mb-3">About</p>
-          <p className="text-lg text-slate-300">
+          <p className="text-xl text-slate-100 mb-3 font-medium">About</p>
+          <p className="text-lg text-slate-200">
             Erdős is an application for Math Geeks to try out new mathematical
             problems and keep track of who solves what. Named after one of the
             most prolific mathematician of all times, Paul Erdős, it is a portal
@@ -12,13 +12,13 @@ export default function aboutPage() {
             some of which may require users to write code.
           </p>
           <br />
-          <p className="text-lg text-slate-300">
+          <p className="text-lg text-slate-200">
             The design of Erdős is clean and card-based, with a focus on
             user-interaction above everything else. It has been developed by
             SDSLabs, IIT Roorkee.
           </p>
           <br />
-          <p className="text-lg text-slate-400 italic">
+          <p className="text-lg text-slate-300 italic">
             "If numbers aren't beautiful, I don't know what is." - Paul Erdős
           </p>
         </div>
@@ -30,7 +30,7 @@ export default function aboutPage() {
           </p>
           <div className="flex flex-col gap-2 p-3">
             <input
-              className="p-1  border-2 border-slate-300"
+              className="p-1  border-2 border-slate-300 placeholder:text-slate-500"
               type="email"
               placeholder="Email"
             />

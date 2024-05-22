@@ -86,18 +86,21 @@ export default function signinPage() {
   return (
     <div className="">
       <div className="w-screen h-[90vh] flex justify-center items-center">
-        <div className="w-1/2 h-1/4 bg-gray-800 flex flex-col items-center gap-4">
-          <p className="text-3xl font-medium text-white">Sign in</p>
+        <div className="w-1/2 h-auto rounded-lg bg-gray-800 flex flex-col items-center gap-4 p-4 cursor-pointer">
+          <p className="text-3xl font-medium text-white font-serif">Sign in</p>
           {loading && (
-            <button
+            <div
               onClick={handleSignin}
-              className="bg-white p-2 px-4 font-medium rounded-md text-lg"
+              className="bg-white p-2 px-4 rounded-md flex gap-2 items-center mt-4"
             >
-              Signin with Google
-            </button>
+              <img src="/google.svg" className="w-8" />
+              <p className="border font-medium rounded-md text-lg ">
+                Sign In with Google
+              </p>
+            </div>
           )}
           <p className="text-sm text-slate-300">
-            By signing in, you agree to Neetcode's terms of service and privacy
+            By signing in, you agree to CodeLabs terms of service and privacy
             policy.
           </p>
           {/* {!loading && <p>Hello, you are logged in as : {email}</p>} */}
