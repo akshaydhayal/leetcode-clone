@@ -1,6 +1,6 @@
 # LeetCode Clone
 
-Live Project Link : [https://leetcode-clone-zltt.onrender.com/](https://leetcode-clone-zltt.onrender.com/)
+Live Project Link : [https://codeelabs.netlify.app/](https://codeelabs.netlify.app/)
 
 ## Description
 This project is a LeetCode clone, providing a platform for users to practice coding problems, submit their solutions, and view leaderboards. It is built using Next.js for frontend, Express.js for the backend and MongoDB for database storage.
